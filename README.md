@@ -1,1 +1,1 @@
-# Grade 11 TEJ3M2 Tech-Flex. Full fledged portfolio website containing HTML, CSS and ReactJS
+# Grade 11 TEJ3M2 Tech-Flex. Full fledged MP3 player made w/ Python, Pygame Mixer. MP4??
