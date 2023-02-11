@@ -5,30 +5,39 @@ from tkinter import filedialog
 from tkinter import *
 from tkinter.filedialog  import askopenfilename
 
-from pydub import AudioSegment
-from pydub.playback import play
-
-pygame.init
+#Initializes pygame and mixer.
+pygame.init()
 pygame.mixer.init()
 
+#For pausing and unpausing!
 num = 0
-multiplefiles = 0
 
+
+#Plays Music
 def PlayMusic():
-    global multiplefiles 
-    multiplefiles +=1
     musicFile = askopenfilename(filetypes=[("Audio Files","*.wav")])
     print(musicFile)
     sound = pygame.mixer.Sound(musicFile)
     sound.play()
-    if (multiplefiles %2) == 0:
-        print('test')
-        sound.stop()
+    #Checks if music is playing because if a new song is selected this runs so that 2 songs dont play simultaneously 
+    if pygame.mixer.get_busy():
+        pygame.mixer.stop()
+        sound.play()
+
+        T = Text(root, height = '30', width = '100')
+        song = Label(root, text = "Currently Playing: ")
+        song2 = Label(root, text = (musicFile(), musicFile()))
+        song.config(font=("Monocraft", 12))
+        song2.config(font=("Monocraft", 12))
+        song.pack()
+        song2.pack()
+        
+#Pauses Music
 def PauseMusic():
     global num
     num += 1
 
-    #if music is playing
+    #checks if music is playing then it checks if num = an odd number, if number is even, music unpauses, odd it pauses.
     if pygame.mixer.get_busy():
         if (num%2) == 0:
             pygame.mixer.unpause()
@@ -39,8 +48,9 @@ def PauseMusic():
     else:
         print("Music is not playing.")
 
+#Stops music.
 def StopMusic():
-    sound.stop()
+    pygame.mixer.stop()
         
 
 
@@ -54,24 +64,38 @@ root.configure(background="#FFC1CC")
 #Window can't be resized anymore. Helps because now the GUI wont be stretched/messed with during presentation
 root.resizable(False, False)
 
-lower_frame = Frame(root, bg = "#FFFFFF", width = "485", height = "200")
+#GIF of cat in the middle!
+frameCnt = 30
+frames = [PhotoImage(file='aa1.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
+
+def update(ind):
+
+    frame = frames[ind]
+    ind += 1
+    if ind == frameCnt:
+        ind = 0
+    label.configure(image=frame, width = '500')
+    root.after(40, update, ind)
+label = Label(root)
+label.place(x=0, y=0)
+root.after(0, update, 0)
+
+
+#for the buttons!
+lower_frame = Frame(root, bg = "#FFC1CC", width = "485", height = "200")
 lower_frame.place(x=0, y=500)
 
 #Play music button.
 playImage = PhotoImage(file =r"play1.png")
-Button(root, image=playImage, bg = "#FFFFFF", command=PlayMusic, height=60, width=60).place(x=120, y= 500)
+Button(root, image=playImage, bg = "#FFFFFF", command=PlayMusic, height=60, width=60).place(x=290, y= 520)
 
 #Pause music button
 pauseButton = PhotoImage(file = 'pause1.png')
-Button(root, image = pauseButton, bg = "#FFFFFF", height = 60, width = 60, command = PauseMusic).place(x=300, y=500)
+Button(root, image = pauseButton, bg = "#FFFFFF", height = 60, width = 60, command = PauseMusic).place(x=360, y=520)
 
 #Stop button
 stopButton = PhotoImage(file = 'stop1.png')
-Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=120, y = 600)
-
-#Browse file button (might not need, added because I was on autopilot)
-#browseFiles = PhotoImage(file = 'gas.png')
-#Button(root, image=browseFiles, bg = "#FFFFFF", height = 60, width = 60, command =BrowseMusic).place(x=300, y = 600)
+Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=325, y = 600)
 
 #runs all the tkinter code
 root.mainloop()
