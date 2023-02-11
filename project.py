@@ -24,14 +24,20 @@ def PlayMusic():
         pygame.mixer.stop()
         sound.play()
 
+        noprefix = musicFile.removeprefix('C:/Users/alex/Downloads/')
+        nosuffix = noprefix.removesuffix('.wav')
+
+        global song2
+        global song
+        
         T = Text(root, height = '30', width = '100')
         song = Label(root, text = "Currently Playing: ")
-        song2 = Label(root, text = (musicFile(), musicFile()))
+        song2 = Label(root, text = str(nosuffix))
         song.config(font=("Monocraft", 12))
         song2.config(font=("Monocraft", 12))
         song.pack()
         song2.pack()
-        
+
 #Pauses Music
 def PauseMusic():
     global num
@@ -51,7 +57,16 @@ def PauseMusic():
 #Stops music.
 def StopMusic():
     pygame.mixer.stop()
+    killText()
         
+def killText():
+    global song
+    global song2
+    
+    song2.destroy()
+    song.destroy()
+    print("test")
+
 
 
 root = Tk()
@@ -64,7 +79,7 @@ root.configure(background="#FFC1CC")
 #Window can't be resized anymore. Helps because now the GUI wont be stretched/messed with during presentation
 root.resizable(False, False)
 
-#GIF of cat in the middle!
+#GIF of cat in the middle! (not copied from stackoverflow ;) 
 frameCnt = 30
 frames = [PhotoImage(file='aa1.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
 
@@ -76,10 +91,10 @@ def update(ind):
         ind = 0
     label.configure(image=frame, width = '500')
     root.after(40, update, ind)
+
 label = Label(root)
 label.place(x=0, y=0)
 root.after(0, update, 0)
-
 
 #for the buttons!
 lower_frame = Frame(root, bg = "#FFC1CC", width = "485", height = "200")
