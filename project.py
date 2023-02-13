@@ -14,7 +14,7 @@ num = 0
 
 
 #Plays Music
-def PlayMusic():
+def PlayMusic():    
     musicFile = askopenfilename(filetypes=[("Audio Files","*.wav")])
     print(musicFile)
     sound = pygame.mixer.Sound(musicFile)
@@ -33,8 +33,8 @@ def PlayMusic():
         T = Text(root, height = '30', width = '100')
         song = Label(root, text = "Currently Playing: ")
         song2 = Label(root, text = str(nosuffix))
-        song.config(font=("Monocraft", 12))
-        song2.config(font=("Monocraft", 12))
+        song.config(font=("Monocraft", 10))
+        song2.config(font=("Monocraft", 10))
         song.pack()
         song2.pack()
 
@@ -65,7 +65,6 @@ def killText():
     
     song2.destroy()
     song.destroy()
-    print("test")
 
 
 
@@ -79,7 +78,7 @@ root.configure(background="#FFC1CC")
 #Window can't be resized anymore. Helps because now the GUI wont be stretched/messed with during presentation
 root.resizable(False, False)
 
-#GIF of cat in the middle! (not copied from stackoverflow ;) 
+#GIF of stickboy in the middle! 
 frameCnt = 30
 frames = [PhotoImage(file='aa1.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
 
