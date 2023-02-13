@@ -12,6 +12,12 @@ pygame.mixer.init()
 #For pausing and unpausing!
 num = 0
 
+def songsQueued(): 
+    print('queue')
+
+#Restarts current song.
+def restartSong():
+    pygame.mixer.music.rewind()
 
 #Plays Music
 def PlayMusic():    
@@ -24,7 +30,7 @@ def PlayMusic():
         pygame.mixer.stop()
         sound.play()
 
-        noprefix = musicFile.removeprefix('C:/Users/alex/Downloads/')
+        noprefix = musicFile.removeprefix('C:/Users/Alexa/Downloads/')
         nosuffix = noprefix.removesuffix('.wav')
 
         global song2
@@ -66,7 +72,7 @@ def killText():
     song2.destroy()
     song.destroy()
 
-
+#:)
 
 root = Tk()
 #Title at the top of the window
@@ -109,7 +115,10 @@ Button(root, image = pauseButton, bg = "#FFFFFF", height = 60, width = 60, comma
 
 #Stop button
 stopButton = PhotoImage(file = 'stop1.png')
-Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=325, y = 600)
+Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=360, y = 600)
+
+rewindButton = PhotoImage(file = 'flipped.png')
+Button(root, image = rewindButton, bg = "#FFFFFF", height = 60, width = 60, command = restartSong).place(x = 290, y = 600)
 
 #runs all the tkinter code
 root.mainloop()
