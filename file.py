@@ -73,15 +73,15 @@ def killText():
 def increaseVolume():
     print("Volume Increased by 0.1!")
     volume = pygame.mixer.music.get_volume()
-    pygame.mixer.music.set_volume(volume + 1)
-    print(volume)
+    pygame.mixer.music.set_volume(volume + 0.1)
+    print("Current Volume: " + str(volume))
 
 
 def decreaseVolume():
     print("Volume Decreased by 0.1!")
     volume = pygame.mixer.music.get_volume()
-    pygame.mixer.music.set_volume(volume - 1)
-    print(volume)
+    pygame.mixer.music.set_volume(volume - 0.1)
+    print("Current Volume: " + str(volume))
 
 
 #:)
