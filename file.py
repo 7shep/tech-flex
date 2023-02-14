@@ -40,7 +40,7 @@ def PlayMusic():
         song.pack()
         song2.pack()
 
-#test!
+#testing
 
 #Pauses Music
 def PauseMusic():
