@@ -17,6 +17,7 @@ def songsQueued():
 
 #Plays Music
 def PlayMusic():    
+    pygame.mixer.music.set_volume(1.0)
     musicFile = askopenfilename(filetypes=[("Audio Files","*.wav")])
     print(musicFile)
     sound = pygame.mixer.Sound(musicFile)
@@ -25,13 +26,12 @@ def PlayMusic():
     if pygame.mixer.get_busy():
         pygame.mixer.stop()
         sound.play()
-
+        #Currently Playing Text
+        global song2
+        global song
         noprefix = musicFile.removeprefix('C:/Users/Alexa/Downloads/')
         nosuffix = noprefix.removesuffix('.wav')
 
-        global song2
-        global song
-        
         T = Text(root, height = '30', width = '100')
         song = Label(root, text = "Currently Playing: ")
         song2 = Label(root, text = str(nosuffix))
@@ -39,7 +39,8 @@ def PlayMusic():
         song2.config(font=("Monocraft", 10))
         song.pack()
         song2.pack()
-
+    if pygame.mixer.get_busy == True and playMusic.has_been_called:
+        print("testerester")
 #testing
 
 #Pauses Music
