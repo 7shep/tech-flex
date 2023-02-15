@@ -13,9 +13,6 @@ pygame.mixer.init()
 #For pausing and unpausing!
 num = 0
 
-def songsQueued(): 
-    print('queue')
-
 #Plays Music
 def PlayMusic():    
     pygame.mixer.music.set_volume(1.0)
@@ -40,8 +37,6 @@ def PlayMusic():
         song2.config(font=("Monocraft", 10))
         song.pack()
         song2.pack()
-    
-#testing
 
 #Pauses Music
 def PauseMusic():
@@ -84,6 +79,17 @@ def decreaseVolume():
     pygame.mixer.music.set_volume(volume - 0.1)
     print("Current Volume: " + str(volume))
 
+def queueSong():
+    queuedSong = askopenfilename(filetypes=[("Audio Files","*.wav")])
+    print(queuedSong)
+    pygame.mixer.music.queue(queuedSong)
+    if pygame.mixer.get_busy() == True:
+        print("Music is currently playing. " + str(queuedSong) + " has been added to queue.")
+
+    else: 
+        queuedsound = pygame.mixer.Sound(queuedSong)
+        pygame.mixer.music.load(queuedSong)
+        queuedsound.play()
 
 #:)
 
@@ -128,13 +134,16 @@ Button(root, image = pauseButton, bg = "#FFFFFF", height = 60, width = 60, comma
 
 #Stop button
 stopButton = PhotoImage(file = 'stop1.png')
-Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=325, y = 600)
+Button(root, image = stopButton, bg = "#FFFFFF", height = 60, width = 60, command = StopMusic).place(x=360, y = 600)
 
 plusButton = PhotoImage(file = 'plus.png')
 Button(root, image = plusButton, bg = "#FFFFFF", height = 60, width = 60, command = increaseVolume).place(x= 80, y=520)
 
 minusButton = PhotoImage(file = 'minus.png')
 Button(root, image = minusButton, bg = "#FFFFFF", height = 60, width = 60, command = decreaseVolume).place(x=80, y= 600)
+
+queueButton = PhotoImage(file = 'queue.png')
+Button(root, image = queueButton, bg = "#FFFFFF", height = 60, width = 60, command = queueSong).place(x=290, y=600)
 
 #runs all the tkinter code
 root.mainloop()
