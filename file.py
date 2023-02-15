@@ -4,6 +4,7 @@ import time
 from tkinter import filedialog
 from tkinter import *
 from tkinter.filedialog  import askopenfilename
+import functools
 
 #Initializes pygame and mixer.
 pygame.init()
@@ -39,8 +40,7 @@ def PlayMusic():
         song2.config(font=("Monocraft", 10))
         song.pack()
         song2.pack()
-    if pygame.mixer.get_busy == True and playMusic.has_been_called:
-        print("testerester")
+    
 #testing
 
 #Pauses Music
