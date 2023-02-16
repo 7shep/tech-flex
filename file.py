@@ -1,4 +1,3 @@
-import pygame
 from pygame import mixer
 import time
 from tkinter import filedialog
@@ -7,22 +6,22 @@ from tkinter.filedialog  import askopenfilename
 import functools
 
 #Initializes pygame and mixer.
-pygame.init()
-pygame.mixer.init()
+mixer.init()
+mixer.init()
 
 #For pausing and unpausing!
 num = 0
 
 #Plays Music
 def PlayMusic():    
-    pygame.mixer.music.set_volume(1.0)
+    mixer.music.set_volume(1.0)
     musicFile = askopenfilename(filetypes=[("Audio Files","*.wav")])
     print(musicFile)
-    sound = pygame.mixer.Sound(musicFile)
+    sound = mixer.Sound(musicFile)
     sound.play()
     #Checks if music is playing because if a new song is selected this runs so that 2 songs dont play simultaneously 
-    if pygame.mixer.get_busy():
-        pygame.mixer.stop()
+    if mixer.get_busy():
+        mixer.stop()
         sound.play()
         #Currently Playing Text
         global song2
@@ -44,19 +43,19 @@ def PauseMusic():
     num += 1
 
     #checks if music is playing then it checks if num = an odd number, if number is even, music unpauses, odd it pauses.
-    if pygame.mixer.get_busy():
+    if mixer.get_busy():
         if (num%2) == 0:
-            pygame.mixer.unpause()
+            mixer.unpause()
             print("Music UnPaused!")
         else: 
-            pygame.mixer.pause()
+            mixer.pause()
             print("Music Paused")
     else:
         print("Music is not playing.")
 
 #Stops music.
 def StopMusic():
-    pygame.mixer.stop()
+    mixer.stop()
     killText()
         
 def killText():
@@ -68,28 +67,27 @@ def killText():
 
 def increaseVolume():
     print("Volume Increased by 0.1!")
-    volume = pygame.mixer.music.get_volume()
-    pygame.mixer.music.set_volume(volume + 0.1)
+    volume = mixer.music.get_volume()
+    mixer.music.set_volume(volume + 0.1)
     print("Current Volume: " + str(volume))
 
 
 def decreaseVolume():
     print("Volume Decreased by 0.1!")
-    volume = pygame.mixer.music.get_volume()
-    pygame.mixer.music.set_volume(volume - 0.1)
+    volume = mixer.music.get_volume()
+    mixer.music.set_volume(volume - 0.1)
     print("Current Volume: " + str(volume))
 
 def queueSong():
     queuedSong = askopenfilename(filetypes=[("Audio Files","*.wav")])
     print(queuedSong)
-    pygame.mixer.music.queue(queuedSong)
-    if pygame.mixer.get_busy() == True:
+    if mixer.get_busy() == True:
         print("Music is currently playing. " + str(queuedSong) + " has been added to queue.")
-
+        mixer.music.load(queuedSong)
+        mixer.music.queue(queuedSong)
     else: 
-        queuedsound = pygame.mixer.Sound(queuedSong)
-        pygame.mixer.music.load(queuedSong)
-        queuedsound.play()
+        noQueuedSong = mixer.Sound(queuedSong)
+        noQueuedSong.play()
 
 #:)
 
